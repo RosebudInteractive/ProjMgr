@@ -115,5 +115,5 @@ app.use(compress());
 app.use("/public", express.static(__dirname + '/public'));
 
 // запускаем http сервер
-http.createServer(app).listen(1325);
-onsole.log('Сервер запущен на http://127.0.0.1:1325/');
+http.createServer(app).listen(1330);
+onsole.log('Сервер запущен на http://127.0.0.1:1330/');
