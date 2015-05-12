@@ -15,6 +15,7 @@
     <ul>
         <li><a href="#tabs-1">Ветки</a></li>
         <li><a href="#tabs-2">Сервер</a></li>
+        <li><a href="#tabs-3">Проекты</a></li>
     </ul>
     <div id="tabs-1">
         <p>Проект
@@ -40,6 +41,41 @@
             <input type="button" value="Обновить" onclick="doAction(this, 'update');">
             <input type="button" value="Перезагрузить" onclick="doAction(this, 'restart');">
         </p>
+    </div>
+    <div id="tabs-3">
+        <p>Проект
+            <select id="addProject">
+                <option value="ProtoOne">ProtoOne</option>
+                <option value="Genetix">Genetix</option>
+            </select>
+            <input id="addBranchName" placeholder="Название ветки проекта">
+            <input id="addUccelloName" placeholder="Название ветки Uccello"> </p>
+        <p>Порт web <select id="addPortWeb">
+                <option value="1340">1340</option>
+                <option value="1341">1341</option>
+                <option value="1342">1342</option>
+                <option value="1343">1343</option>
+                <option value="1344">1344</option>
+                <option value="1345">1345</option>
+                <option value="1346">1346</option>
+                <option value="1347">1347</option>
+                <option value="1348">1348</option>
+                <option value="1349">1349</option>
+            </select>
+            Порт ws <select id="addPortWs">
+                <option value="8090">8090</option>
+                <option value="8091">8091</option>
+                <option value="8092">8092</option>
+                <option value="8093">8093</option>
+                <option value="8094">8094</option>
+                <option value="8095">8095</option>
+                <option value="8096">8096</option>
+                <option value="8097">8097</option>
+                <option value="8098">8098</option>
+                <option value="8099">8099</option>
+            </select></p><p>
+            <input type="button" value="Добавить проект" onclick="doAction(this, 'add');"></p>
+
     </div>
 </div>
 <p>&nbsp;</p>

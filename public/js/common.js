@@ -7,7 +7,16 @@ function doAction(btn, action) {
     $.ajax({
         method: "POST",
         url: "/admin/"+action,
-        data: { branchProject: $('#branchProject').val(), branchName: $('#branchName').val(), serverProject: $('#serverProject').val() }
+        data: {
+            branchProject: $('#branchProject').val(),
+            branchName: $('#branchName').val(),
+            serverProject: $('#serverProject').val(),
+            addProject: $('#addProject').val() ,
+            addBranchName: $('#addBranchName').val() ,
+            addUccelloName: $('#addUccelloName').val() ,
+            addPortWeb: $('#addPortWeb').val() ,
+            addPortWs: $('#addPortWs').val()
+        }
     })
         .done(function( msg ) {
             //console.log(arguments);

@@ -93,7 +93,7 @@ app.post("/admin/:what", function(req, res) {
                     projectFile = 'memserver.js';
                     break;
                 case 'Genetix':
-                    projectPath = '/var/www/sites/genetix/Genetix/';
+                    projectPath = '/var/www/sites/genetix/Genetix/web/';
                     projectFile = 'genetixSrv.js';
                     break;
             }
@@ -103,6 +103,51 @@ app.post("/admin/:what", function(req, res) {
             } else {
                 res.write('Error: метод не поддерживается');
             }
+            break;
+        case 'add':
+            var fs = require('fs');
+            var rootFolder = '/var/www/sites/node/projects/';
+            var projectPath = null, projectGit = null, projectServer = null,
+                uccelloGit='github.com/RosebudInteractive/Uccello.git',
+                projectBranch = req.body.addBranchName, uccelloBranch = req.body.addUccelloName;
+
+            if (!projectBranch || projectBranch == '') projectBranch = 'master';
+            if (!uccelloBranch || uccelloBranch == '') uccelloBranch = 'master';
+
+            for(var projectId=0;projectId<100;projectId++) {
+                projectPath = rootFolder+'project/'+projectId;
+                if (!fs.existsSync(projectPath)) {
+                    fs.mkdirSync(projectPath);
+                    break;
+                }
+            }
+            if (!projectPath) {
+                res.write('Error: не могу создать дирректорию');
+                break;
+            }
+
+            switch (req.body.addProject){
+                case 'ProtoOne':
+                    projectServer = 'ProtoOne/memserver.js';
+                    projectGit = 'github.com/RosebudInteractive/ProtoOne.git';
+                    break;
+                case 'Genetix':
+                    projectServer = 'Genetix/web/genetixSrv.js';
+                    projectGit = 'github.com/RosebudInteractive/Genetix.git';
+                    break;
+            }
+            if (projectServer) {
+                var cmd = 'cd '+projectPath+'; git clone -b '+projectBranch+' https://rudserg:rud850502@'+projectGit;
+                execCommand(cmd);
+                var cmd = 'cd '+projectPath+'; git clone -b '+uccelloBranch+' https://rudserg:rud850502@'+uccelloGit;
+                execCommand(cmd);
+                var cmd = 'forever --uid "project'+projectId+'" start '+projectPath+projectServer+' Uccello '+req.body.addPortWeb+' '+req.body.addPortWs;
+                execCommand(cmd);
+            } else {
+                res.write('Error: проект не найден');
+            }
+
+            fs.writeFileSync(projectPath+'.info', JSON.stringify(req.body));
             break;
     }
     res.end();
