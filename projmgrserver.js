@@ -179,7 +179,7 @@ app.post("/admin/:what", function(req, res) {
                 execCommand(cmd);
                 var cmd = 'rm -r '+projectPath;
                 execCommand(cmd);
-                var cmd = '/home/rudenko/.forever/'+projectName+'.log';
+                var cmd = 'rm /home/rudenko/.forever/'+projectName+'.log';
                 execCommand(cmd);
 
                 // информация по проектам для вывода
