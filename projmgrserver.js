@@ -15,7 +15,7 @@ app.get('/', function(req, res){
 app.post("/admin/:what", function(req, res) {
 
     function execCommand(command) {
-        res.write('$ '+command+'<br>');
+        res.write('$ '+command.replace(new RegExp("https://(.*?)@(.*)",'g'), 'https://$2')+'<br>');
         var output = shell.exec(command).output;
         output = output.replace(new RegExp("https://(.*?)@(.*)",'g'), 'https://$2');
         output = output?output:'Ok';
@@ -114,8 +114,8 @@ app.post("/admin/:what", function(req, res) {
             if (!projectBranch || projectBranch == '') projectBranch = 'master';
             if (!uccelloBranch || uccelloBranch == '') uccelloBranch = 'master';
 
-            for(var projectId=0;projectId<100;projectId++) {
-                projectPath = rootFolder+'project'+projectId;
+            for(var projectId=0;projectId<10;projectId++) {
+                projectPath = rootFolder+'project'+projectId+'/';
                 if (!fs.existsSync(projectPath)) {
                     fs.mkdirSync(projectPath);
                     break;
@@ -146,6 +146,7 @@ app.post("/admin/:what", function(req, res) {
                 fs.writeFileSync(projectPath+'.info', JSON.stringify({project:req.body.addProject,path:'project'+projectId, projectBranch:projectBranch, uccelloBranch:uccelloBranch, portWeb:req.body.addPortWeb, portWs:req.body.addPortWs, date:Date.now()}));
             } else {
                 res.write('Error: проект не найден');
+                break;
             }
 
             break;
