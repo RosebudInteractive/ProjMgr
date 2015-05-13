@@ -147,7 +147,7 @@ app.post("/admin/:what", function(req, res) {
                 res.write('Error: проект не найден');
             }
 
-            fs.writeFileSync(projectPath+'.info', JSON.stringify(req.body));
+            fs.writeFileSync(projectPath+'.info', JSON.stringify({project:req.body.addProject,path:'project'+projectId, projectBranch:projectBranch, uccelloBranch:uccelloBranch, portWeb:req.body.addPortWeb, portWs:req.body.addPortWs, date:Date.now()}));
             break;
     }
     res.end();
