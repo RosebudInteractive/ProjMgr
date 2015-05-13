@@ -145,6 +145,8 @@ app.post("/admin/:what", function(req, res) {
                 execCommand(cmd);
                 var cmd = 'cd '+projectPath+'; git clone -b '+uccelloBranch+' https://rudserg:rud850502@'+uccelloGit;
                 execCommand(cmd);
+                var cmd = 'cd '+projectPath+'; mkdir logs';
+                execCommand(cmd);
                 var cmd = 'cd '+projectPath+projectServerPath+'; forever --uid "project'+projectId+'" start '+projectPath+projectServerPath+projectServer+' Uccello '+req.body.addPortWeb+' '+req.body.addPortWs;
                 execCommand(cmd);
 
