@@ -137,6 +137,8 @@ app.post("/admin/:what", function(req, res) {
                     break;
             }
             if (projectServer) {
+
+                // клонируем проекты и запускаем инстанс ноды
                 var cmd = 'cd '+projectPath+'; git clone -b '+projectBranch+' https://rudserg:rud850502@'+projectGit;
                 execCommand(cmd);
                 var cmd = 'cd '+projectPath+'; git clone -b '+uccelloBranch+' https://rudserg:rud850502@'+uccelloGit;
@@ -152,11 +154,21 @@ app.post("/admin/:what", function(req, res) {
                 }
                 info.push({project:req.body.addProject,path:'project'+projectId, projectBranch:projectBranch, uccelloBranch:uccelloBranch, portWeb:req.body.addPortWeb, portWs:req.body.addPortWs, date:Date.now()});
                 fs.writeFileSync(rootFolder+'.info', JSON.stringify(info));
+
             } else {
                 res.write('Error: проект не найден');
                 break;
             }
-
+            break;
+        case 'projects':
+            // информация по проектам для вывода
+            var rootFolder = '/var/www/sites/node/projects/';
+            var infoFile = rootFolder+'.info';
+            var info = [];
+            if (fs.existsSync(infoFile)) {
+                info = JSON.parse(fs.readFileSync(infoFile));
+            }
+            res.write(JSON.stringify(info));
             break;
     }
     res.end();
