@@ -43,6 +43,8 @@ function printProjects(msg) {
     var projects = JSON.parse(msg);
     $('#currProjects').html('');
     for(var i=0; i<projects.length; i++) {
+        $('#addPortWeb').find('option[value='+projects[i].portWeb+']').remove();
+        $('#addPortWs').find('option[value='+projects[i].portWs+']').remove();
         $('#currProjects').append('<p>'+projects[i].project+':'+projects[i].projectBranch+'/Uccello:'+projects[i].uccelloBranch+' <a href="http://projects.calypsoid.com:'+projects[i].portWeb+'" target="_blank">открыть</a>'+' <a href="#" onclick="if (confirm(\'Вы уверены?\')) doAction(null, \'delete\', {path:\''+projects[i].path+'\'}); return false;">удалить</a></p>');
     }
 }
