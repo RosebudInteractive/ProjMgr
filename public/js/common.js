@@ -3,21 +3,26 @@ $(function() {
     doAction(null, 'projects');
 });
 
-function doAction(btn, action) {
+function doAction(btn, action, extraData) {
     if (btn) $(btn).attr('disabled', true);
+    var data = {
+        branchProject: $('#branchProject').val(),
+        branchName: $('#branchName').val(),
+        serverProject: $('#serverProject').val(),
+        addProject: $('#addProject').val() ,
+        addBranchName: $('#addBranchName').val() ,
+        addUccelloName: $('#addUccelloName').val() ,
+        addPortWeb: $('#addPortWeb').val() ,
+        addPortWs: $('#addPortWs').val()
+    };
+    if (extraData)
+        for (var attrname in extraData)
+            data[attrname] = extraData[attrname];
+
     $.ajax({
         method: "POST",
         url: "/admin/"+action,
-        data: {
-            branchProject: $('#branchProject').val(),
-            branchName: $('#branchName').val(),
-            serverProject: $('#serverProject').val(),
-            addProject: $('#addProject').val() ,
-            addBranchName: $('#addBranchName').val() ,
-            addUccelloName: $('#addUccelloName').val() ,
-            addPortWeb: $('#addPortWeb').val() ,
-            addPortWs: $('#addPortWs').val()
-        }
+        data: data
     })
         .done(function( msg ) {
             //console.log(arguments);
