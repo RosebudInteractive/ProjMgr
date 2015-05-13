@@ -170,6 +170,35 @@ app.post("/admin/:what", function(req, res) {
             }
             res.write(JSON.stringify(info));
             break;
+        case 'delete':
+            var rootFolder = '/var/www/sites/node/projects/';
+            var projectName = req.body.path;
+            var projectPath = rootFolder+projectName+'/';
+            if (fs.existsSync(projectPath)) {
+                var cmd = 'forever stop '+projectName;
+                execCommand(cmd);
+                var cmd = 'rm -r '+projectPath;
+                execCommand(cmd);
+
+                // информация по проектам для вывода
+                var infoFile = rootFolder+'.info';
+                var info = [];
+                if (fs.existsSync(infoFile)) {
+                    info = JSON.parse(fs.readFileSync(infoFile));
+                    for(var i=0; i<info.length; i++)
+                        if (info[i].path == projectName)
+                            info.splice(i, 1);
+                    fs.writeFileSync(rootFolder+'.info', JSON.stringify(info));
+                } else {
+                    res.write('Error: проект не найден');
+                    break;
+                }
+            } else {
+                res.write('Error: проект не найден');
+                break;
+            }
+
+            break;
     }
     res.end();
 });

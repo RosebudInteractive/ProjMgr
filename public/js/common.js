@@ -32,7 +32,7 @@ function doAction(btn, action, extraData) {
                 if (!msg && msg == '') msg = 'Ok';
                 $('#branchResponse').html('<p>'+msg+'</p>'+$('#branchResponse').html());
                 //$('#branchResponse').html('<p>'+msg+'</p>');
-                if (action == 'add')
+                if (action == 'add' || action == 'delete')
                     doAction(null, 'projects');
             }
             if (btn) $(btn).attr('disabled', false);
