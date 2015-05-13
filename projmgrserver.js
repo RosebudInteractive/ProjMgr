@@ -1,3 +1,4 @@
+var fs = require('fs');
 var http = require('http');
 var express = require('express');
 var bodyParser = require("body-parser");
@@ -105,7 +106,6 @@ app.post("/admin/:what", function(req, res) {
             }
             break;
         case 'add':
-            var fs = require('fs');
             var rootFolder = '/var/www/sites/node/projects/';
             var projectPath = null, projectGit = null, projectServer = null,
                 uccelloGit='github.com/RosebudInteractive/Uccello.git',
