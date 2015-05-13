@@ -5,7 +5,7 @@ $(function() {
         $("#qloader").show();
     }).ajaxStop(function() {
         $("#qloader").hide();
-    });​
+    });
 
     doAction(null, 'projects');
 });
