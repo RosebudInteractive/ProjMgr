@@ -115,7 +115,7 @@ app.post("/admin/:what", function(req, res) {
             if (!uccelloBranch || uccelloBranch == '') uccelloBranch = 'master';
 
             for(var projectId=0;projectId<100;projectId++) {
-                projectPath = rootFolder+'project/'+projectId;
+                projectPath = rootFolder+'project'+projectId;
                 if (!fs.existsSync(projectPath)) {
                     fs.mkdirSync(projectPath);
                     break;
@@ -143,11 +143,11 @@ app.post("/admin/:what", function(req, res) {
                 execCommand(cmd);
                 var cmd = 'forever --uid "project'+projectId+'" start '+projectPath+projectServer+' Uccello '+req.body.addPortWeb+' '+req.body.addPortWs;
                 execCommand(cmd);
+                fs.writeFileSync(projectPath+'.info', JSON.stringify({project:req.body.addProject,path:'project'+projectId, projectBranch:projectBranch, uccelloBranch:uccelloBranch, portWeb:req.body.addPortWeb, portWs:req.body.addPortWs, date:Date.now()}));
             } else {
                 res.write('Error: проект не найден');
             }
 
-            fs.writeFileSync(projectPath+'.info', JSON.stringify({project:req.body.addProject,path:'project'+projectId, projectBranch:projectBranch, uccelloBranch:uccelloBranch, portWeb:req.body.addPortWeb, portWs:req.body.addPortWs, date:Date.now()}));
             break;
     }
     res.end();
