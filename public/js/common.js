@@ -42,6 +42,9 @@ function doAction(btn, action, extraData) {
 function printProjects(msg) {
     var projects = JSON.parse(msg);
     $('#currProjects').html('');
+    $('#addPortWeb').html(' <option value="1340">1340</option> <option value="1341">1341</option> <option value="1342">1342</option> <option value="1343">1343</option> <option value="1344">1344</option> <option value="1345">1345</option> <option value="1346">1346</option> <option value="1347">1347</option> <option value="1348">1348</option> <option value="1349">1349</option>');
+    $('#addPortWs').html(' <option value="8090">8090</option> <option value="8091">8091</option> <option value="8092">8092</option> <option value="8093">8093</option> <option value="8094">8094</option> <option value="8095">8095</option> <option value="8096">8096</option> <option value="8097">8097</option> <option value="8098">8098</option> <option value="8099">8099</option>');
+
     for(var i=0; i<projects.length; i++) {
         $('#addPortWeb').find('option[value='+projects[i].portWeb+']').remove();
         $('#addPortWs').find('option[value='+projects[i].portWs+']').remove();
