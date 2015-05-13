@@ -107,7 +107,7 @@ app.post("/admin/:what", function(req, res) {
             break;
         case 'add':
             var rootFolder = '/var/www/sites/node/projects/';
-            var projectPath = null, projectGit = null, projectServer = null,
+            var projectPath = null, projectGit = null, projectServer = null, projectServerPath = null,
                 uccelloGit='github.com/RosebudInteractive/Uccello.git',
                 projectBranch = req.body.addBranchName, uccelloBranch = req.body.addUccelloName;
 
@@ -128,11 +128,13 @@ app.post("/admin/:what", function(req, res) {
 
             switch (req.body.addProject){
                 case 'ProtoOne':
-                    projectServer = 'ProtoOne/memserver.js';
+                    projectServerPath = 'ProtoOne/';
+                    projectServer = 'memserver.js';
                     projectGit = 'github.com/RosebudInteractive/ProtoOne.git';
                     break;
                 case 'Genetix':
-                    projectServer = 'Genetix/web/genetixSrv.js';
+                    projectServerPath = 'Genetix/web/';
+                    projectServer = 'genetixSrv.js';
                     projectGit = 'github.com/RosebudInteractive/Genetix.git';
                     break;
             }
@@ -143,7 +145,7 @@ app.post("/admin/:what", function(req, res) {
                 execCommand(cmd);
                 var cmd = 'cd '+projectPath+'; git clone -b '+uccelloBranch+' https://rudserg:rud850502@'+uccelloGit;
                 execCommand(cmd);
-                var cmd = 'forever --uid "project'+projectId+'" start '+projectPath+projectServer+' Uccello '+req.body.addPortWeb+' '+req.body.addPortWs;
+                var cmd = 'cd '+projectPath+projectServerPath+'; forever --uid "project'+projectId+'" start '+projectPath+projectServerPath+projectServer+' Uccello '+req.body.addPortWeb+' '+req.body.addPortWs;
                 execCommand(cmd);
 
                 // информация по проектам для вывода
