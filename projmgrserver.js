@@ -64,6 +64,9 @@ app.post("/admin/:what", function(req, res) {
                 case 'Uccello':
                     projectPath = '/var/www/sites/node/Uccello/';
                     break;
+                case 'Uccello:Genetix':
+                    projectPath = '/var/www/sites/genetix/Uccello/';
+                    break;
                 case 'ProtoOneNginx':
                     projectPath = '/var/www/sites/node/ProtoOne/';
                     break;
