@@ -60,25 +60,31 @@ app.post("/admin/:what", function(req, res) {
             break;
         case 'update':
             var projectPath = null;
+            var projectGit = null;
             switch (req.body.serverProject){
                 case 'Uccello':
                     projectPath = '/var/www/sites/node/Uccello/';
+                    projectGit = 'github.com/RosebudInteractive/Uccello.git';
                     break;
                 case 'Uccello:Genetix':
                     projectPath = '/var/www/sites/genetix/Uccello/';
+                    projectGit = 'github.com/RosebudInteractive/Uccello.git';
                     break;
                 case 'ProtoOneNginx':
                     projectPath = '/var/www/sites/node/ProtoOne/';
+                    projectGit = 'github.com/RosebudInteractive/ProtoOne.git';
                     break;
                 case 'ProtoOne':
                     projectPath = '/var/www/sites/node/ProtoOne/';
+                    projectGit = 'github.com/RosebudInteractive/ProtoOne.git';
                     break;
                 case 'Genetix':
                     projectPath = '/var/www/sites/genetix/Genetix/';
+                    projectGit = 'github.com/RosebudInteractive/Genetix.git';
                     break;
             }
             if (projectPath) {
-                var cmd = 'cd '+projectPath+'; git pull';
+                var cmd = 'cd '+projectPath+'; git pull https://rudserg:rud850502@'+projectGit;
                 execCommand(cmd);
             } else {
                 res.write('Error: метод не поддерживается');
