@@ -84,7 +84,7 @@ app.post("/admin/:what", function(req, res) {
                     break;
             }
             if (projectPath) {
-                var cmd = 'cd '+projectPath+'; git pull https://rudserg:rud850502@'+projectGit;
+                var cmd = 'cd '+projectPath+'; git pull origin master https://rudserg:rud850502@'+projectGit;
                 execCommand(cmd);
             } else {
                 res.write('Error: метод не поддерживается');
